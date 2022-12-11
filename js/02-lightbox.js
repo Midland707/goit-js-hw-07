@@ -37,7 +37,7 @@ const items = galleryItems.reduce(
 );
 galleryList.insertAdjacentHTML("beforeend", items);
 
-// open modal with large image if klick to small image
+// open modal with large image if klick on small image
 const gallery = new SimpleLightbox(".gallery a", {
   captionsData: "alt",
   captionDelay: 250,

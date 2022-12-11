@@ -77,9 +77,10 @@ function onClick(event) {
     <img src="${event.target.dataset.source}"/>
 `);
     instance.show();
-    document.addEventListener("keydown", closeModal);
   }
 }
+
+document.addEventListener("keydown", closeModal);
 
 //close modal key press "Escape"
 function closeModal(e) {
@@ -88,6 +89,5 @@ function closeModal(e) {
   if (e.key === "Escape") {
     instance.close();
     instance = undefined;
-    document.removeEventListener("keydown", closeModal);
   }
 }
