@@ -47,11 +47,12 @@ console.log(galleryItems);
 //       'https://cdn.pixabay.com/photo/2019/05/14/16/43/himilayan-blue-poppy-4202825_1280.jpg',
 //     description: 'Hokkaido Flower',
 
-const imgList = document.querySelector(".gallery");
+const galleryList = document.querySelector(".gallery");
 
-const items = galleryItems.map(({ preview, original, description }) => {
-  const img = `
-  <div class="gallery__item">
+const items = galleryItems.reduce(
+  (acc, { preview, original, description }) =>
+    acc +
+    `<div class="gallery__item">
   <a class="gallery__link" href="${original}">
     <img
       class="gallery__image"
@@ -60,9 +61,36 @@ const items = galleryItems.map(({ preview, original, description }) => {
       alt="${description}"
     />
   </a>
-</div>`;
-  imgList.insertAdjacentHTML("afterbegin", img); //3
-  // return img;
-});
+</div>`,
+  ""
+);
+galleryList.insertAdjacentHTML("beforeend", items);
+galleryList.addEventListener("click", onClick);
 
-// console.log(items);
+function onClick(event) {
+  if (event.target.classList.contains("gallery__image")) {
+    // console.log(event.target.dataset.source);
+    const instance = basicLightbox.create(`
+    <div class="modal">
+    <img
+      src="${event.target.dataset.source}"
+    />
+    </div>
+`);
+    instance.show();
+  }
+}
+
+// const imgList = document.querySelector(".gallery__link");
+
+// console.log(imgList);
+
+// const instance = basicLightbox.create(`
+//     <div class="modal">
+//     <img
+//       src="https://cdn.pixabay.com/photo/2019/05/14/16/43/himilayan-blue-poppy-4202825_1280.jpg"
+//     />
+//     </div>
+// `);
+
+// instance.show();
