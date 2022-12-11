@@ -40,3 +40,29 @@ import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 
 console.log(galleryItems);
+
+//    preview:
+//       'https://cdn.pixabay.com/photo/2019/05/14/16/43/himilayan-blue-poppy-4202825__340.jpg',
+//     original:
+//       'https://cdn.pixabay.com/photo/2019/05/14/16/43/himilayan-blue-poppy-4202825_1280.jpg',
+//     description: 'Hokkaido Flower',
+
+const imgList = document.querySelector(".gallery");
+
+const items = galleryItems.map(({ preview, original, description }) => {
+  const img = `
+  <div class="gallery__item">
+  <a class="gallery__link" href="${original}">
+    <img
+      class="gallery__image"
+      src="${preview}"
+      data-source="${original}"
+      alt="${description}"
+    />
+  </a>
+</div>`;
+  imgList.insertAdjacentHTML("afterbegin", img); //3
+  // return img;
+});
+
+// console.log(items);
