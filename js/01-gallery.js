@@ -67,30 +67,27 @@ const items = galleryItems.reduce(
 galleryList.insertAdjacentHTML("beforeend", items);
 galleryList.addEventListener("click", onClick);
 
+let instance;
+//open modal with large image if klick to small image
 function onClick(event) {
+  event.preventDefault();
   if (event.target.classList.contains("gallery__image")) {
-    // console.log(event.target.dataset.source);
-    const instance = basicLightbox.create(`
-    <div class="modal">
-    <img
-      src="${event.target.dataset.source}"
-    />
-    </div>
+    // console.log(event.target);
+    instance = basicLightbox.create(`
+    <img src="${event.target.dataset.source}"/>
 `);
     instance.show();
+    document.addEventListener("keydown", closeModal);
   }
 }
 
-// const imgList = document.querySelector(".gallery__link");
+//close modal key press "Escape"
+function closeModal(e) {
+  if (!instance) return;
 
-// console.log(imgList);
-
-// const instance = basicLightbox.create(`
-//     <div class="modal">
-//     <img
-//       src="https://cdn.pixabay.com/photo/2019/05/14/16/43/himilayan-blue-poppy-4202825_1280.jpg"
-//     />
-//     </div>
-// `);
-
-// instance.show();
+  if (e.key === "Escape") {
+    instance.close();
+    instance = undefined;
+    document.removeEventListener("keydown", closeModal);
+  }
+}
